@@ -14,10 +14,13 @@ import Apply from './Component/MainComponent/Apply'
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { useState } from 'react';
+import Demo from './Component/MainComponent/Demo'
+import { UserContextProvider } from './Component/MainComponent/UserContext'
 
 function App() {
-     const [ user, setLoginUser] = useState({})
+     //const [ user, setLoginUser] = useState({})
   return (
+     <UserContextProvider>
        <BrowserRouter>
        <Header />
           <Routes>
@@ -25,16 +28,18 @@ function App() {
                <Route path='/About' element = {<About />} />
                <Route path='/Contact' element = {<Contact />} />
                <Route path='/Faq' element = {<Faq />} />
-               <Route path='/Signup' element = {<Signup />} />
-               <Route path='/Login' element = {<Login setLoginUser={setLoginUser}/>} />
+               <Route path='/demo' element = {<Demo />} />
+               <Route path='/register' element = {<Signup />} />
+               <Route path='/login' element = {<Login/>} />
                <Route path='/Company' element = {<Company />} />
-               <Route path='/Apply' element = {user && user._id ? <Apply setLoginUser={setLoginUser} /> : <Login setLoginUser={setLoginUser}/>} />
+               <Route path='/apply' element = {<Apply /> } />
             
 
           </Routes>
        
        <Footer />
        </BrowserRouter>
+       </UserContextProvider>
   );
 }
 

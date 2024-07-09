@@ -1,70 +1,72 @@
-import express from "express"
-import cors from "cors"
-import mongoose from "mongoose"
+const express = require('express');
+const cors = require('cors');
+//const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const connectDB = require('./config/db');
+//const User = require('./models/user');
+const schema=require('./models/newUser')
+const cookieParser=require('cookie-parser')
+const app = express();
+app.use(cookieParser())
+const secret = "strongKey"; // Store this securely
+app.use(cors({origin:'http://localhost:3000',
+  credentials:true}))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+connectDB();
 
-const app = express()
-app.use(express.json())
-app.use(express.urlencoded())
-app.use(cors())
+// Routes
+app.get("/", (req, res) => {
+  res.send("Server is Running");
+});
 
-mongoose.connect("mongodb://localhost:27017/placementDatabase", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, () => {
-    console.log("DB connected")
+app.post('/register',async(req,res)=>{
+  try {
+      const{username,password}=req.body
+  console.log(req.body)
+  const newUser=schema({
+      username:username,
+      password:password
+  })
+  await newUser.save()
+  res.status(201).json({message:'Registration successful'})
+  } catch (error) {
+      res.status(500).json({error:"registration failed"})
+  }
 })
-
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String
-})
-
-const User = new mongoose.model("User", userSchema)
-
-//Routes
-app.get("/",(req,res)=>{
-    res.send("Server is Running")
-})
-
-app.post("/login", (req, res)=> {
-    const { email, password} = req.body
-    User.findOne({ email: email}, (err, user) => {
-        if(user){
-            if(password === user.password ) {
-                res.send({message: "Login Successfull", user: user})
-            } else {
-                res.send({ message: "Password didn't match"})
-            }
-        } else {
-            res.send({message: "User not registered"})
+app.post('/login', async (req, res) => {
+  
+      const { username, password } = req.body;
+      console.log(req.body);
+      const user = await schema.findOne({ username });
+      if (!user) {
+          return res.status(400).json('User not found');
         }
-    })
-}) 
+      if (password===user.password) {
+          jwt.sign({username,id:user._id},secret,{},(error,token)=>{
+              if(error) throw error;
+              res.status(200).cookie('token',token).json({
+                  id:user._id,
+                  username
+              })
+          })
+      }  
+      else{
+          res.status(401).json('wrong credentials')
+      }
+});
+app.get('/profile', (req,res) => {
+  const {token} = req.cookies;
+  jwt.verify(token, secret, {}, (err,info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+});
+app.post('/logout', (req, res) => {
+  res.cookie('token','').json('ok')
 
-app.post("/Signup", (req, res)=> {
-    const { lname, email, password} = req.body
-    User.findOne({email: email}, (err, user) => {
-        if(user){
-            res.send({message: "User already registerd"})
-        } else {
-            const user = new User({
-                lname,
-                email,
-                password
-            })
-            user.save(err => {
-                if(err) {
-                    res.send(err)
-                } else {
-                    res.send( { message: "Successfully Registered, Please login now." })
-                }
-            })
-        }
-    })
-    
-}) 
+});
 
-app.listen(9002,() => {
-    console.log("BE started at port 9002")
-})
+app.listen(4000, () => {
+  console.log("BE started at port 4000");
+});

@@ -1,29 +1,12 @@
 import React, { useRef } from 'react';
-import emailjs from '@emailjs/browser';
 
 export default function Apply() {
   const form = useRef()
-  // const sendEmail = () => {};
-  
-  
-  const sendEmail = (e) => {
-    e.preventDefault();
-    
-    emailjs.sendForm('service_cda2574', 'template_6gatpmw', form.current, 'OraYNlRtz0YQd_Ew9')
-        .then((result) => {
-            console.log(result.text);
-        }, (error) => {
-            console.log(error.text);
-        });
-        e.target.reset()
-        alert('Your Message has been submit Successfull ')
-        // document.write('Your Message has been successfull')
-    };
   return (
     <div className='apply-body'>
       <div className="container afc">
           <div className="forms">
-            <form ref={form} onSubmit={sendEmail} method="post">
+            <form ref={form} method="post">
               <div className="row">
                 <div className="col-md-12">
                   <h2 id="title">Placement Application Form</h2>
@@ -121,7 +104,7 @@ export default function Apply() {
                 <lable>Female</lable>
               </div>
               <div className="file">
-                Uplode The Resume <input type="file" name="file" id="file" placeholder="Resume" />
+                Upload The Resume <input type="file" name="file" id="file" placeholder="Resume" />
               </div>
               <div className="input-name">
                 <input type="checkbox" id="cb" className="check-button" required />

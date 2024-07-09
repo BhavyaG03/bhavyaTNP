@@ -60,24 +60,15 @@ export default function About() {
     <div className="a-1 container contain  text-center">
       <div className="a-1-1 p-4">
         <h4>What We Do?</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae ullam laboriosam repellat
-          doloribus soluta, culpa consequuntur aliquid nemo quibusdam fugiat dolores, omnis vitae debitis itaque!
-          Repellat vero sequi ipsam alias aspernatur iste aperiam deserunt rem dicta ut, ad doloribus saepe ea animi
-          fuga soluta, exercitationem cumque aliquam eaque provident?</p>
+        <p>A placement management system is a specialized software solution designed to streamline the process of matching students or job seekers with suitable job opportunities or internships. It facilitates the organization, tracking, and management of placement activities, including job postings, applications, interviews, and communications between employers and candidates. By automating and centralizing these functions, a placement management system enhances efficiency, reduces administrative burden.</p>
       </div>
       <div className="a-1-2 p-4">
-        <h4>Why Choose This Website?</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae ullam laboriosam repellat
-          doloribus soluta, culpa consequuntur aliquid nemo quibusdam fugiat dolores, omnis vitae debitis itaque!
-          Repellat vero sequi ipsam alias aspernatur iste aperiam deserunt rem dicta ut, ad doloribus saepe ea animi
-          fuga soluta, exercitationem cumque aliquam eaque provident?</p>
+        <h4>Why Choose Us</h4>
+        <p>Choosing a placement management system offers several significant advantages. Firstly, it enhances efficiency by automating the entire placement process, from job postings to interview scheduling, reducing manual workload and minimizing errors. Secondly, it provides centralized management, allowing all placement activities, candidate information.</p>
       </div>
       <div className="a-1-3 p-4">
         <h4>What's Our Motive?</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae recusandae ullam laboriosam repellat
-          doloribus soluta, culpa consequuntur aliquid nemo quibusdam fugiat dolores, omnis vitae debitis itaque!
-          Repellat vero sequi ipsam alias aspernatur iste aperiam deserunt rem dicta ut, ad doloribus saepe ea animi
-          fuga soluta, exercitationem cumque aliquam eaque provident?</p>
+        <p>A placement management system is a specialized software solution designed to streamline the process of matching students or job seekers with suitable job opportunities or internships. It facilitates the organization, tracking, and management of placement activities, including job postings, applications, interviews, and communications between employers and candidates. By automating and centralizing these functions, a placement management system enhances efficiency, reduces administrative burden.</p>
       </div>
     </div>
   </div>

@@ -1,9 +1,27 @@
-
-import React from 'react'
-import {a} from 'react-router-dom'
-
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { UserContext } from '../MainComponent/UserContext'
 
 export default function Header() {
+  const{setUserInfo,userInfo}=useContext(UserContext)
+  useEffect(()=>{
+    fetch(`http://localhost:4000/profile`,{
+      credentials:'include'
+    }).then(response=>{
+      response.json().then(userInfo=>{
+        setUserInfo(userInfo)
+      })
+    })
+  },[])
+  function logout() {
+    fetch('http://localhost:4000/logout',{
+      credentials :'include',
+      method:'POST',
+    })
+    setUserInfo(null)
+}
+const username=userInfo?.username
   return (
     <div>
     <header className="p-3 text-bg-dark bg-black sticky-top sticky">
@@ -21,8 +39,15 @@ export default function Header() {
                 <input type="search" className="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search" />
               </form>
               <div className="text-end">
-              <a href="/Login"><button type="button" className="btn btn-outline-danger me-2 lb "> Login </button></a>
-                <button type="button" className="btn btn-warning sb"><a href="/Signup"> Sign-up </a></button>
+              {username && (
+          <>
+            <a onClick={logout}>Logout</a>
+          </>
+        )}
+        {!username && (<>
+          <Link to="/login" className="btn btn-warning sb">Login</Link>
+        <Link to="/register" className="btn btn-outline-danger me-2 lb">Register</Link>
+        </>)}
               </div>
             </div>
           </div>
